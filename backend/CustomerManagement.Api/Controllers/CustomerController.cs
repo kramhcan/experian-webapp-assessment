@@ -24,20 +24,55 @@ namespace CustomerManagement.Api.Controllers
         public IActionResult GetAll()
         {
             // Deferred Execution
-            var stocks = _context.Customers.ToList();
-            return Ok(stocks);
+            var customer = _context.Customers.ToList();
+            return Ok(customer);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("byId/{id}")]
         public IActionResult GetById([FromRoute] int id)
         {
             // Deferred Execution
-            var stocks = _context.Customers.Find(id);
-            if (stocks == null)
+            var customer = _context.Customers.Find(id);
+            if (customer == null)
                 return NotFound();
 
-            return Ok(stocks);
+            return Ok(customer);
         }
+
+        [HttpGet("byFirstName/{firstName}")]
+        public IActionResult GetByFirstName([FromRoute] string firstName)
+        {
+            // Deferred Execution
+            var customer = _context.Customers.Where(x => x.FirstName == firstName).ToList();
+            if (customer == null)
+                return NotFound();
+
+            return Ok(customer);
+        }
+
+        [HttpGet("byLastName/{lastName}")]
+        public IActionResult GetByLastName([FromRoute] string lastName)
+        {
+            // Deferred Execution
+            var customer = _context.Customers.Where(x => x.LastName == lastName).ToList();
+            if (customer == null)
+                return NotFound();
+
+            return Ok(customer);
+        }
+
+        [HttpGet("byEmail/{email}")]
+        public IActionResult GetByEmail([FromRoute] string email)
+        {
+            // Deferred Execution
+            var customer = _context.Customers.Where(x => x.Email == email).ToList();
+            if (customer == null)
+                return NotFound();
+
+            return Ok(customer);
+        }
+
+        //TODO: Create GetByCriteria method for Open/Close Principle (OCP)
 
         [HttpPost]
         public IActionResult Create([FromBody] Customer customer)
