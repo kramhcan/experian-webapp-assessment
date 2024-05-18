@@ -1,0 +1,60 @@
+<form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label class="formLabel" for="firstName">First Name</label>
+      <input
+        class="formInput"
+        type="text"
+        id="firstName"
+        formControlName="firstName"
+      />
+      <div
+        *ngIf="
+          customerForm.get('lastName')?.invalid &&
+          customerForm.get('lastName')?.touched
+        "
+      >
+        <span class="errorSpan" *ngIf="customerForm.get('firstName')?.errors?.['required']"
+          >First name is required.</span
+        >
+      </div>
+    </div>
+    <div>
+      <label class="formLabel" for="lastName">Last Name</label>
+      <input
+        class="formInput"
+        type="text"
+        id="lastName"
+        formControlName="lastName"
+      />
+      <div
+        *ngIf="
+          customerForm.get('lastName')?.invalid &&
+          customerForm.get('lastName')?.touched
+        "
+      >
+        <span class="errorSpan" *ngIf="customerForm.get('lastName')?.errors?.['required']"
+          >Last name is required.</span
+        >
+      </div>
+    </div>
+    <div>
+      <label class="formLabel" for="email">Email</label>
+      <input class="formInput" type="text" id="email" formControlName="email" />
+      <div
+        *ngIf="
+          customerForm.get('email')?.invalid && customerForm.get('email')?.touched
+        "
+      >
+        <span class="errorSpan" *ngIf="customerForm.get('email')?.errors?.['required']"
+          >Email is required.</span
+        >
+        <span class="errorSpan" *ngIf="customerForm.get('email')?.errors?.['email']"
+          >Invalid email format.</span
+        >
+      </div>
+    </div>
+    <button class="formButton" type="submit" [disabled]="customerForm.invalid">
+      Submit
+    </button>
+  </form>
+  
