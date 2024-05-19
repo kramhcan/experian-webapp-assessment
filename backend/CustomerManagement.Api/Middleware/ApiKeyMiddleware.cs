@@ -13,7 +13,7 @@ namespace CustomerManagement.Api.Middleware
         public ApiKeyMiddleware(RequestDelegate next, IConfiguration configuration)
         {
             _next = next;
-            _apiKey = configuration["ApiKey"];
+            _apiKey = configuration?["ApiKey"];
         }
 
         public async Task InvokeAsync(HttpContext context)
