@@ -16,10 +16,14 @@ namespace CustomerManagement.Api.Controllers
     public class CustomerController : ControllerBase
     {
         private readonly ApplicationDBContext _context;
+        private readonly ICriteriaFactory _criteriaFactory;
 
-        public CustomerController(ApplicationDBContext context)
+        // 
+        public CustomerController(ApplicationDBContext context, ICriteriaFactory criteriaFactory)
         {
+            // Dependency Injector container injecting the context and factory
             _context = context;
+            _criteriaFactory = criteriaFactory;
         }
 
         // GET /api/Customer
@@ -42,32 +46,47 @@ namespace CustomerManagement.Api.Controllers
         }
 
         // GET /api/Customer/byCriteria?criteriaType=XXXX&criteriaValue=XXXX 
-        // I think this adheres to Open/Closed Principle?
+        // i think this adheres to Open/Closed Principle?
         [HttpGet("byCriteria")]
         public IActionResult GetByCriteria([FromQuery] string? criteriaType, [FromQuery] string? criteriaValue)
         {
             if (string.IsNullOrWhiteSpace(criteriaType) || string.IsNullOrWhiteSpace(criteriaValue))
                 return BadRequest("Criteria type and value must be provided.");
 
-            // Create an instance of the appropriate criteria class based on the criteriaType
-            ICustomerSearchCriteria? criteria = criteriaType.ToLower() switch
-            {
-                "firstname" => new FirstNameCriteria(criteriaValue),
-                "lastname" => new LastNameCriteria(criteriaValue),
-                "email" => new EmailCriteria(criteriaValue),
-                _ => null
-            };
+            // // Create an instance of the appropriate criteria class based on the criteriaType
+            // ICustomerSearchCriteria? criteria = criteriaType.ToLower() switch
+            // {
+            //     "firstname" => new FirstNameCriteria(criteriaValue),
+            //     "lastname" => new LastNameCriteria(criteriaValue),
+            //     "email" => new EmailCriteria(criteriaValue),
+            //     _ => null
+            // };
+            // if (criteria == null)
+            //     return BadRequest($"Invalid criteria type: {criteriaType}. Valid types are: firstname, lastname, email.");
+            // var customers = criteria.Apply(_context.Customers.AsQueryable()).ToList();
 
-            if (criteria == null)
-                return BadRequest($"Invalid criteria type: {criteriaType}. Valid types are: firstname, lastname, email.");
+            // if (!customers.Any())
+            //     return NotFound();
 
-        
-            var customers = criteria.Apply(_context.Customers.AsQueryable()).ToList();
+            // return Ok(customers);
 
-            if (!customers.Any())
-                return NotFound();
 
-            return Ok(customers);
+            // move the above logic to the factory
+            try{
+                // use factory to create the criteria object based on input
+                var criteria = _criteriaFactory.Create(criteriaType, criteriaValue);
+                // Apply the criteria to the customers query
+                var customers = criteria.Apply(_context.Customers.AsQueryable()).ToList();
+
+                if (!customers.Any())
+                    return NotFound();
+                
+                return Ok(customers);
+            } catch (ArgumentException e){
+                return BadRequest(e.Message);
+            }
+
+            
         }
 
         // POST /api/Customer
