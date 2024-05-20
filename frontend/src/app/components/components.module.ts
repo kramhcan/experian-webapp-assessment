@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { ComponentsRoutingModule } from './components-routing.module';
 
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { CustomerFormComponent } from './customer-form/customer-form.component';
 import { CustomerListComponent } from './customer-list/customer-list.component';
 
@@ -16,7 +17,8 @@ import { CustomerListComponent } from './customer-list/customer-list.component';
   imports: [
     CommonModule,
     ComponentsRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class ComponentsModule { }

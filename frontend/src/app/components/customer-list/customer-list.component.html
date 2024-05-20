@@ -1,1 +1,29 @@
-<p>customer-list works!</p>
+<div class="listContainer">
+  <h2>Customer List</h2>
+
+  <!-- Search Section -->
+  <div class="search-section">
+    <input class="searchInput" type="text" placeholder="Search..." [(ngModel)]="searchText">
+    <select class="searchSelect" [(ngModel)]="searchCriteria">
+      <option value="id">ID</option>
+      <option value="firstName">First Name</option>
+      <option value="lastName">Last Name</option>
+      <option value="email">Email</option>
+    </select>
+    <button class="searchButton" (click)="search()">Search</button>
+    <button class="searchButton" (click)="reset()">Reset</button>
+  </div>
+  
+  <div *ngIf="errorMessage" class="error">
+    {{ errorMessage }}
+  </div>
+  <ul>
+    <li *ngFor="let customer of customers">
+      <p>ID: {{ customer.id }}</p>
+      <p>First Name: {{ customer.firstName }}</p>
+      <p>Last Name: {{ customer.lastName }}</p>
+      <p>Email: {{ customer.email }}</p>
+      <div class="breaker"></div>
+    </li>
+  </ul>
+</div>
