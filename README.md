@@ -63,7 +63,7 @@ Dependency Injection concept referencing https://learn.microsoft.com/en-us/aspne
 
 
 ## CustomerController  
-The CustomerController is the main controller of the API. It handles all the HTTP requests related to customers. 
+The `CustomerController` is the main controller of the API. It handles all the HTTP requests related to customers. 
 
 ### Endpoints  
 * `GET /api/Customer` : Returns a list of all customers.  
@@ -134,7 +134,7 @@ Response:
 Represents a customer in the system. Contains properties such as id, firstname, lastname, and email.
 
 ## ICustomerSearchCriteria Implementations  
-The ICustomerSearchCriteria interface is implemented by several classes to provide different search criteria for customers. Each class takes a specific value in its constructor and applies it to a query in the Apply method.
+The `ICustomerSearchCriteria` interface is implemented by several classes to provide different search criteria for customers. Each class takes a specific value in its constructor and applies it to a query in the Apply method.
 
 * `EmailCriteria`  
 Searches for customers by email. The Apply method filters the query to include only customers whose email matches the provided email.
@@ -146,10 +146,12 @@ Searches for customers by first name. The Apply method filters the query to incl
 Searches for customers by last name. The Apply method filters the query to include only customers whose last name matches the provided last name.
 
 ## CriteriaFactory  
-The CriteriaFactory class is a factory that creates instances of ICustomerSearchCriteria based on a provided criteria type and value. The Create method uses a switch statement to create the appropriate criteria object based on the criteria type. If the criteria type is not recognized, it throws an ArgumentException.
+The `CriteriaFactory` class is a factory that creates instances of `ICustomerSearchCriteria` based on a provided criteria type and value. The Create method uses a switch statement to create the appropriate criteria object based on the criteria type. If the criteria type is not recognized, it throws an ArgumentException.
 
 ### Methods
 `Create(string criteriaType, string criteriaValue)`  
-Creates an instance of ICustomerSearchCriteria based on the provided criteria type and value. The criteria type is expected to be one of the following: "email", "firstname", "lastname". If it's not, an ArgumentException is thrown. The created criteria object is returned.
+Creates an instance of ICustomerSearchCriteria based on the provided criteria type and value. The criteria type is expected to be one of the following: "email", "firstname", "lastname". If it's not, an ArgumentException is thrown. The created criteria object is returned.  
 
 # Customer Management Database Documentation
+
+
