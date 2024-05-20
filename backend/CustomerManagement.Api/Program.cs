@@ -1,6 +1,8 @@
 using CustomerManagement.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using CustomerManagement.Api.Middleware;
+using CustomerManagement.Api.Implementations;
+using CustomerManagement.Api.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,10 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+// register factory in dependency injection container
+// scoped lifetime - one instance per request
+builder.Services.AddScoped<ICriteriaFactory, CriteriaFactory>();
 
 var app = builder.Build();
 

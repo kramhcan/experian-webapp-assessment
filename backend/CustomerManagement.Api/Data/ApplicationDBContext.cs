@@ -13,7 +13,7 @@ namespace CustomerManagement.Api.Data
     {
         public ApplicationDBContext(DbContextOptions dbContextOptions) : base(dbContextOptions)
         {
-            
+
         }
 
         public DbSet<Customer> Customers { get; set; }
