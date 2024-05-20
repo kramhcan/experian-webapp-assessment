@@ -152,6 +152,76 @@ The `CriteriaFactory` class is a factory that creates instances of `ICustomerSea
 `Create(string criteriaType, string criteriaValue)`  
 Creates an instance of ICustomerSearchCriteria based on the provided criteria type and value. The criteria type is expected to be one of the following: "email", "firstname", "lastname". If it's not, an ArgumentException is thrown. The created criteria object is returned.  
 
+# Customer Management Tests (CustomerControllerTests) Documentation
+
+### Overview
+`CustomerControllerTests` is a set of unit tests for the CustomerController class in CustomerManagement.Api. Testing mainly `GetByCriteria` function.
+
+## CustomerControllerTests
+
+### Test Cases
+`GetByCriteria_ReturnsOkResult_WithValidCriteria()`  
+Test to verify that `GetByCriteria` method in `CustomerController` returns an `OkObjectResult` with list of `Customer` objects when given valid criteria.
+
+`GetByCriteria_ReturnsNotFoundResult_WhenNoMatchingCriteria()`  
+Test to verify that `GetByCriteria` method in `CustomerController` returns `NotFoundResult` when no customers match the given criteria.
+
+`GetByCriteria_ReturnsBadRequest_WhenInvalidCriteria()`  
+Test to verify that `GetByCriteria` method in `CustomerController` returns a `BadRequestObjectResult` when given invalid criteria.
+
+`GetByCriteria_ReturnsOkResult_WithFirstNameCriteria()`  
+Test to verify that `GetByCriteria` method in `CustomerController` returns an
+`OkObjectResult` with list of `Customer` objects when given valid criteria.
+
 # Customer Management Database Documentation
 
+### Overview
+The database is a Microsoft SQL Database generated through Entity Framework Migrations. The database consists of one `Customers` table and one `_EFMigrationsHistory` table.
+
+## Scripts
+
+The scripts for tables:
+
+`Customers`
+```
+CREATE TABLE [dbo].[Customers](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[FirstName] [nvarchar](max) NOT NULL,
+	[LastName] [nvarchar](max) NOT NULL,
+	[Email] [nvarchar](max) NOT NULL,
+ CONSTRAINT [PK_Customers] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+```  
+
+`_EFMigrationsHistory`
+```
+CREATE TABLE [dbo].[__EFMigrationsHistory](
+	[MigrationId] [nvarchar](150) NOT NULL,
+	[ProductVersion] [nvarchar](32) NOT NULL,
+ CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY CLUSTERED 
+(
+	[MigrationId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+```
+
+## Table structures
+`Customer`  
+| Column Name | Data Type | 
+| ------------- |:-------------:|
+|Id |int |
+|FirstName |nvarchar(MAX) |
+|LastName| nvarchar(MAX) | 
+|Email | nvarchar(MAX) | 
+
+`_EFMigrationsHistory_`  
+| Column Name | Data Type | 
+| ------------- |:-------------:|
+|MigrationId |nvarchar(150) |
+|ProductVersion |nvarchar(32) | 
 
