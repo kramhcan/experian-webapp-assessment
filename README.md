@@ -4,7 +4,7 @@ Database : MSSQL
 
 # Customer Management UI Documentation  
 ## Overview
-Simple AngularJS UI implementing two pages, `customer-form` and `customer-list`. These components to serve as   
+Simple AngularJS UI implementing two pages, `customer-form` and `customer-list`.
 ### Screencaps
 `Customer Form`
 ![Screenshot of customer form](./doc-screenshots/customer-form-screenshot.png)

@@ -7,6 +7,7 @@ using CustomerManagement.Api.Models;
 
 namespace CustomerManagement.Api.Implementations
 {
+    //class to search customers by email
     public class EmailCriteria : ICustomerSearchCriteria
     {
         private readonly string _email;

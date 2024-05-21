@@ -7,6 +7,7 @@ using CustomerManagement.Api.Models;
 
 namespace CustomerManagement.Api.Implementations
 {
+    //class to search customers by last name
     public class LastNameCriteria : ICustomerSearchCriteria
     {
         private readonly string _lastName;

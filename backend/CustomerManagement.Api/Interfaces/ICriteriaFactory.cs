@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace CustomerManagement.Api.Interfaces
 {
-    // interface to define factory method
+    // interface to define factory method that creates criteria instances
     public interface ICriteriaFactory
     {
         // factory method to create criteria instances
